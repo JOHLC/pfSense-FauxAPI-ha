@@ -6,19 +6,19 @@ This isn't in any way intended to be an official or supported release, so contin
 I owe credit to mainly this Home Assistant community post: https://community.home-assistant.io/t/pfsense-stat-monitor/61070
 Also: https://community.home-assistant.io/t/pfsense-rule-switch/109424 / https://github.com/dgshue/home-assistant-custom-components
 
-### Screenshots
-
-<img src="https://raw.githubusercontent.com/JOHLC/pfSense-FauxAPI-ha/main/images/sc1.png" alt="Screenshot 1" >
-
-<img src="https://raw.githubusercontent.com/JOHLC/pfSense-FauxAPI-ha/main/images/sc2.png" alt="Screenshot 2" >
-
-
 ### Prerequisites
  - FauxAPI installed and configured with an API key and access token
  - Home Assistant - I am running on Home Assistant OS / Hassio 
  - Patience and understanding 
  - Python3?
  - To switch firewall rules on or off you need this component: https://github.com/dgshue/home-assistant-custom-components
+
+### Screenshots
+
+<img src="https://raw.githubusercontent.com/JOHLC/pfSense-FauxAPI-ha/main/images/sc1.png" alt="Screenshot 1" >
+
+<img src="https://raw.githubusercontent.com/JOHLC/pfSense-FauxAPI-ha/main/images/sc2.png" alt="Screenshot 2" >
+
 
 # Install instructions
 
