@@ -1,4 +1,4 @@
-# pfSense-FauxAPI
+# pfSense FauxAPI for Home Assistant
 A custom component for Home Assistant that interfaces with FauxAPI installed on a pfSense firewall.
 This isn't in any way intended to be an official or supported release, so continue at your own risk. 
 
