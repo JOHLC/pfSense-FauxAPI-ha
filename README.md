@@ -46,6 +46,9 @@ shell_command:
 ```yaml
 # Example configuration.yaml entry
 sensor:
+#######################################
+#              FauxAPI                #
+#######################################
 # Version
   - platform: command_line
     command: !secret pf_api_info
@@ -92,6 +95,23 @@ sensor:
     value_template: '{{ ( ( ((value_json["data"]["stats"]["cpu"].split("|")[0] | float) / (value_json["data"]["stats"]["cpu"].split("|")[1] | float)) - 1.0 ) * 100.0 ) | round(1) }}'
     unit_of_measurement : '%'
     scan_interval: 15
+
+# Not sure these work all that accurately 
+
+- platform: command_line
+    command: !secret pf_api_stats
+    name: pfSense CPU load avg
+    value_template: '{{ ((value_json["data"]["stats"]["load_average"][0] | float) * 100.0 / 2.0 ) | round(0) }}'
+    unit_of_measurement : '%'
+    scan_interval: 15
+
+  - platform: command_line
+    command: !secret pf_api_stats
+    name: pfSense CPU usage
+    value_template: '{{ ( ( ((value_json["data"]["stats"]["cpu"].split("|")[0] | float) / (value_json["data"]["stats"]["cpu"].split("|")[1] | float)) - 1.0 ) * 100.0 ) | round(1) }}'
+    unit_of_measurement : '%'
+    scan_interval: 15
+
 ```
 
   
