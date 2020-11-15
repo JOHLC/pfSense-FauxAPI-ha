@@ -17,6 +17,7 @@ Also: https://community.home-assistant.io/t/pfsense-rule-switch/109424 / https:/
 
 ## Install the components
 1. Copy the folder in custom_components/ called "pfsense_fauxapi" to your custom components directory in Home Assistant
+2. To switch firewall rules on or off you need this: https://github.com/dgshue/home-assistant-custom-components
 
 ## Configure your secrets.yaml with the appropriate python commands
 ```yaml
