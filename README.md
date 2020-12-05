@@ -24,7 +24,7 @@ Also: https://community.home-assistant.io/t/pfsense-rule-switch/109424 / https:/
 
 # Install instructions
 
-## HACS installation - recommended<br /> 
+## 1. HACS installation - recommended<br /> 
 1. Open HACS
 2. Select "Frontend"
 3. Select the ... menu button at the top right
@@ -37,10 +37,12 @@ Also: https://community.home-assistant.io/t/pfsense-rule-switch/109424 / https:/
 10. Click "INSTALL" then install again on the pop-up
 11. Restart Home Assistant
 
-### Manual Installation - not recommended<br /> 
+### 1.1 Manual Installation - not recommended<br /> 
 1. Download the files in custom components folder
 2. Upload the downloadeded files to your custom components directory
 3. Restart Home Assistant
+
+## 2. Configure your sensors and commands<br /> 
 
 #### Configure your secrets.yaml with the appropriate python commands
 ```yaml
