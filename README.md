@@ -1,4 +1,7 @@
 # pfSense FauxAPI for Home Assistant
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
+![GitHub All Releases](https://img.shields.io/github/downloads/johlc/pfSense-FauxAPI-ha/total?&label=Total%20Downloads&style=flat-square&labelColor=2ea9f4&color=1473ae) 
+
 A custom component for Home Assistant that interfaces with FauxAPI installed on a pfSense firewall.
 This isn't in any way intended to be an official or supported release, so continue at your own risk. I'm not even sure it's even a "component"
 
@@ -13,11 +16,10 @@ Also: https://community.home-assistant.io/t/pfsense-rule-switch/109424 / https:/
  - Python3?
  - To switch firewall rules on or off you need this component: https://github.com/dgshue/home-assistant-custom-components
 
-### Screenshots
+### Screenshot
 
-<img src="https://raw.githubusercontent.com/JOHLC/pfSense-FauxAPI-ha/main/images/sc1.png" alt="Screenshot 1" >
+<img src="https://raw.githubusercontent.com/JOHLC/pfSense-FauxAPI-ha/main/images/screen1.png" alt="Screenshot 1" >
 
-<img src="https://raw.githubusercontent.com/JOHLC/pfSense-FauxAPI-ha/main/images/sc2.png" alt="Screenshot 2" >
 
 
 # Install instructions
@@ -40,7 +42,7 @@ Also: https://community.home-assistant.io/t/pfsense-rule-switch/109424 / https:/
 2. Upload the downloadeded files to your custom components directory
 3. Restart Home Assistant
 
-### Configure your secrets.yaml with the appropriate python commands
+#### Configure your secrets.yaml with the appropriate python commands
 ```yaml
 # Example secrets.yaml entries - you will need to change your host IP, apikey, and accesstoken in each command below
 pf_api_stats: "python3 /config/custom_components/pfsense_fauxapi/function-stats.py 192.168.1.1 PFFAyourapikey youraccesstoken"
@@ -50,14 +52,14 @@ pf_api_restart: "python3 /config/custom_components/pfsense_fauxapi/function-rebo
 pf_api_int_wan: "python3 /config/custom_components/pfsense_fauxapi/function-int-wan.py 192.168.1.1 PFFAyourapikey youraccesstoken"
 ```
 
-### Configure your reboot command
+#### Configure your reboot command
 ```yaml
 # Example configuration.yaml entries
 shell_command:
   pfsense_restart: !secret pf_api_restart
 ```
 
-### Configure your sensors
+#### Configure your sensors
 ```yaml
 # Example configuration.yaml entry
 sensor:
