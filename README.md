@@ -10,12 +10,12 @@ I owe credit to mainly this Home Assistant community post: https://community.hom
 Also: https://community.home-assistant.io/t/pfsense-rule-switch/109424 / https://github.com/dgshue/home-assistant-custom-components
 
 ### Prerequisites
- - FauxAPI installed and configured with an API key and access token
- - Home Assistant - I am running on Home Assistant OS / Hassio 
- - Patience and understanding 
- - Python3?
+ - [FauxAPI](https://github.com/ndejong/pfsense_fauxapi) installed and configured with an API key and access token
+ - [Home Assistant](https://www.home-assistant.io/) - I am running on Home Assistant OS / Hassio 
+ - The ability to run Python3 commands in your Home Assistant environmet
  - To switch firewall rules on or off you need this component: https://github.com/dgshue/home-assistant-custom-components
-
+ - Patience and understanding 
+ 
 ### Screenshot
 
 <img src="https://raw.githubusercontent.com/JOHLC/pfSense-FauxAPI-ha/main/images/screen1.png" alt="Screenshot 1" >
