@@ -3,7 +3,7 @@
 ![GitHub All Releases](https://img.shields.io/github/downloads/johlc/pfSense-FauxAPI-ha/total?&label=Total%20Downloads&style=flat-square&labelColor=2ea9f4&color=1473ae) 
 
 A custom component for Home Assistant that interfaces with FauxAPI installed on a pfSense firewall.
-This isn't in any way intended to be an official or supported release, so continue at your own risk. I'm not even sure it's even a "component"
+This isn't in any way intended to be an official or supported release, so continue at your own risk. I'm not even sure it's even a "component."
 If anyone with a better understanding of Python would like to help improve this, that would be cool. 
 
 I owe credit to mainly this Home Assistant community post: https://community.home-assistant.io/t/pfsense-stat-monitor/61070
