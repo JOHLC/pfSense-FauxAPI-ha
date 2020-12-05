@@ -30,7 +30,7 @@ Also: https://community.home-assistant.io/t/pfsense-rule-switch/109424 / https:/
 3. Select the ... menu button at the top right
 4. Select "Custom repositories"
 5. At the bottom left of the menu where it says "Add custom repository URL" add this repository: https://github.com/JOHLC/pfSense-FauxAPI-ha
-6. Select the "Theme" category
+6. Select the "Integration" category
 7. Select "ADD"
 8. Close this menu
 9. This should now show up as a new repository
