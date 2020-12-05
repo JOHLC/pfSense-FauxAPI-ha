@@ -32,6 +32,7 @@ pf_api_stats: "python3 /config/custom_components/pfsense_fauxapi/function-stats.
 pf_api_info: "python3 /config/custom_components/pfsense_fauxapi/function-info.py 192.168.1.1 PFFAyourapikey youraccesstoken"
 pf_api_gw: "python3 /config/custom_components/pfsense_fauxapi/function-gateway.py 192.168.1.1 PFFAyourapikey youraccesstoken"
 pf_api_restart: "python3 /config/custom_components/pfsense_fauxapi/function-reboot.py 192.168.1.1 PFFAyourapikey youraccesstoken"
+pf_api_int_wan: "python3 /config/custom_components/pfsense_fauxapi/function-int-wan.py 192.168.1.1 PFFAyourapikey youraccesstoken"
 ```
 
 ## Configure your reboot command
@@ -49,7 +50,8 @@ sensor:
 #######################################
 #              FauxAPI                #
 #######################################
-# Version
+
+###Version
   - platform: command_line
     command: !secret pf_api_info
     name: pfSense version
@@ -61,13 +63,13 @@ sensor:
     name: pfSense latest
     value_template: '{{ value_json["data"]["info"]["pfsense_remote_version"]["version"] }}'
     scan_interval: 3600
-# Hardware
+###Hardware
   - platform: command_line
-    command: !secret pf_api_info
+    command: !secret pf_api_stats
     name: pfSense_CPU_temp
     value_template: '{{ value_json["data"]["stats"]["temp"] }}'
     unit_of_measurement : 'C'
-    scan_interval: 30
+    scan_interval: 60
 
   - platform: command_line
     command: !secret pf_api_stats
@@ -80,38 +82,58 @@ sensor:
     name: pfSense memory use
     value_template: '{{ value_json["data"]["stats"]["mem"] }}'
     unit_of_measurement : '%'
-    scan_interval: 15
+    scan_interval: 60
 
   - platform: command_line
     command: !secret pf_api_stats
     name: pfSense CPU load avg
     value_template: '{{ ((value_json["data"]["stats"]["load_average"][0] | float) * 100.0 / 2.0 ) | round(0) }}'
     unit_of_measurement : '%'
-    scan_interval: 15
+    scan_interval: 60
 
   - platform: command_line
     command: !secret pf_api_stats
     name: pfSense CPU usage
     value_template: '{{ ( ( ((value_json["data"]["stats"]["cpu"].split("|")[0] | float) / (value_json["data"]["stats"]["cpu"].split("|")[1] | float)) - 1.0 ) * 100.0 ) | round(1) }}'
     unit_of_measurement : '%'
-    scan_interval: 15
-
-# Not sure these work all that accurately 
-
-- platform: command_line
-    command: !secret pf_api_stats
-    name: pfSense CPU load avg
-    value_template: '{{ ((value_json["data"]["stats"]["load_average"][0] | float) * 100.0 / 2.0 ) | round(0) }}'
-    unit_of_measurement : '%'
+    scan_interval: 60
+    
+###WAN stats
+  - platform: command_line
+    command: !secret pf_api_gw
+    name: pfSense WAN IP
+    value_template: '{{ value_json["data"]["gateway_status"]["ip.address.of.yourgw"]["srcip"] }}'
+    scan_interval: 1800
+    
+  - platform: command_line
+    command: !secret pf_api_gw
+    name: pfSense WAN packetloss
+    value_template: '{{ value_json["data"]["gateway_status"]["ip.address.of.yourgw"]["loss"] }}'
     scan_interval: 15
 
   - platform: command_line
-    command: !secret pf_api_stats
-    name: pfSense CPU usage
-    value_template: '{{ ( ( ((value_json["data"]["stats"]["cpu"].split("|")[0] | float) / (value_json["data"]["stats"]["cpu"].split("|")[1] | float)) - 1.0 ) * 100.0 ) | round(1) }}'
-    unit_of_measurement : '%'
+    command: !secret pf_api_gw
+    name: pfSense WAN status
+    value_template: '{{ value_json["data"]["gateway_status"]["ip.address.of.yourgw"]["status"] }}'
     scan_interval: 15
 
-```
+  - platform: command_line
+    command: !secret pf_api_gw
+    name: pfSense WAN latency
+    value_template: '{{ value_json["data"]["gateway_status"]["ip.address.of.yourgw"]["delay"] }}'
+    scan_interval: 60
 
+  - platform: command_line
+    command: !secret pf_api_int_wan
+    name: pfSense WAN GB in
+    value_template: '{{ (value_json["data"]["stats"]["inbytes"] | float / 1000 / 1000 / 1000) | round(2)}}'
+    scan_interval: 60
+    unit_of_measurement: GB
+
+  - platform: command_line
+    command: !secret pf_api_int_wan
+    name: pfSense WAN GB out
+    value_template: '{{ (value_json["data"]["stats"]["outbytes"] | float / 1000 / 1000 / 1000) | round(2)}}'
+    scan_interval: 60
+    unit_of_measurement: GB
   
