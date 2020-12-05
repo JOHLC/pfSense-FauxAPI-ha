@@ -40,7 +40,7 @@ Also: https://community.home-assistant.io/t/pfsense-rule-switch/109424 / https:/
 2. Upload the downloadeded files to your custom components directory
 3. Restart Home Assistant
 
-## Configure your secrets.yaml with the appropriate python commands
+### Configure your secrets.yaml with the appropriate python commands
 ```yaml
 # Example secrets.yaml entries - you will need to change your host IP, apikey, and accesstoken in each command below
 pf_api_stats: "python3 /config/custom_components/pfsense_fauxapi/function-stats.py 192.168.1.1 PFFAyourapikey youraccesstoken"
@@ -50,14 +50,14 @@ pf_api_restart: "python3 /config/custom_components/pfsense_fauxapi/function-rebo
 pf_api_int_wan: "python3 /config/custom_components/pfsense_fauxapi/function-int-wan.py 192.168.1.1 PFFAyourapikey youraccesstoken"
 ```
 
-## Configure your reboot command
+### Configure your reboot command
 ```yaml
 # Example configuration.yaml entries
 shell_command:
   pfsense_restart: !secret pf_api_restart
 ```
 
-## Configure your sensors
+### Configure your sensors
 ```yaml
 # Example configuration.yaml entry
 sensor:
