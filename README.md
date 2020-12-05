@@ -22,8 +22,23 @@ Also: https://community.home-assistant.io/t/pfsense-rule-switch/109424 / https:/
 
 # Install instructions
 
-## Install the components
-1. Copy the folder in custom_components/ called "pfsense_fauxapi" to your custom components directory in Home Assistant
+## HACS installation - recommended<br /> 
+1. Open HACS
+2. Select "Frontend"
+3. Select the ... menu button at the top right
+4. Select "Custom repositories"
+5. At the bottom left of the menu where it says "Add custom repository URL" add this repository: https://github.com/JOHLC/pfSense-FauxAPI-ha
+6. Select the "Theme" category
+7. Select "ADD"
+8. Close this menu
+9. This should now show up as a new repository
+10. Click "INSTALL" then install again on the pop-up
+11. Restart Home Assistant
+
+### Manual Installation - not recommended<br /> 
+1. Download the files in custom components folder
+2. Upload the downloadeded files to your custom components directory
+3. Restart Home Assistant
 
 ## Configure your secrets.yaml with the appropriate python commands
 ```yaml
@@ -40,7 +55,6 @@ pf_api_int_wan: "python3 /config/custom_components/pfsense_fauxapi/function-int-
 # Example configuration.yaml entries
 shell_command:
   pfsense_restart: !secret pf_api_restart
-
 ```
 
 ## Configure your sensors
@@ -50,7 +64,6 @@ sensor:
 #######################################
 #              FauxAPI                #
 #######################################
-
 ###Version
   - platform: command_line
     command: !secret pf_api_info
