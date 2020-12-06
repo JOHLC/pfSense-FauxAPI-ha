@@ -49,8 +49,11 @@ Also: https://community.home-assistant.io/t/pfsense-rule-switch/109424 / https:/
 # Example secrets.yaml entries - you will need to change your host IP, apikey, and accesstoken in each command below
 pf_api_stats: "python3 /config/custom_components/pfsense_fauxapi/function-stats.py 192.168.1.1 PFFAyourapikey youraccesstoken"
 pf_api_info: "python3 /config/custom_components/pfsense_fauxapi/function-info.py 192.168.1.1 PFFAyourapikey youraccesstoken"
-pf_api_gw: "python3 /config/custom_components/pfsense_fauxapi/function-gateway.py 192.168.1.1 PFFAyourapikey youraccesstoken"
 pf_api_restart: "python3 /config/custom_components/pfsense_fauxapi/function-reboot.py 192.168.1.1 PFFAyourapikey youraccesstoken"
+pf_api_gw: "python3 /config/custom_components/pfsense_fauxapi/function-gateway.py 192.168.1.1 PFFAyourapikey youraccesstoken"
+# Note: In order to fetch wan information you may need to do the following:
+#   - Add `interface_*` to the `permit` line in `/etc/fauxapi/credentials.ini` in your pfSense instance
+#   - Change the interface name in `config/custom_components/pfsense_fauxapi/function-int-wan.py` if your pfSense wan interface is not `igb0`
 pf_api_int_wan: "python3 /config/custom_components/pfsense_fauxapi/function-int-wan.py 192.168.1.1 PFFAyourapikey youraccesstoken"
 ```
 
