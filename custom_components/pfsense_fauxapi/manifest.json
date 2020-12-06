@@ -1,5 +1,5 @@
 {
-  "domain": "pfSense",
+  "domain": "pfSense_fauxapi",
   "name": "pfSense FauxAPI",
   "documentation": "https://github.com/JOHLC/pfSense-FauxAPI-ha",
   "dependencies": [],
