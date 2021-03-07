@@ -134,7 +134,7 @@ sensor:
   - platform: command_line
     command: !secret pf_api_gw
     name: pfSense WAN IP
-    value_template: '{{ value_json["data"]["your.gw.ip.address"]["98.5.112.1"]["srcip"] }}'
+    value_template: '{{ value_json["data"]["your.gw.ip.address"]["your.gw.ip.address"]["srcip"] }}'
     scan_interval: 1800
     
   - platform: command_line
