@@ -17,7 +17,7 @@ Also: https://community.home-assistant.io/t/pfsense-rule-switch/109424 / https:/
  - Patience and understanding 
  
 ### Screenshot
-<img src="https://raw.githubusercontent.com/JOHLC/pfSense-FauxAPI-ha/main/images/screen1.png" alt="Screenshot 1" >
+<img src="https://raw.githubusercontent.com/JOHLC/pfSense-FauxAPI-ha/main/images/sclatest.jpg" alt="Screenshot 1" >
 
 # Install instructions
 
