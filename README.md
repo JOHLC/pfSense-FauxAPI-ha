@@ -10,9 +10,9 @@ I owe credit to mainly this Home Assistant community post: https://community.hom
 Also: https://community.home-assistant.io/t/pfsense-rule-switch/109424 / https://github.com/dgshue/home-assistant-custom-components
 
 ### Prerequisites
- - A device with [pfSense](https://www.pfsense.org/) installed
- - The [FauxAPI](https://github.com/ndejong/pfsense_fauxapi) installed on your pfSense instance, configured with an API key and access token
- - [Home Assistant](https://www.home-assistant.io/) - I am running core version 2021.2.3 on Home Assistant OS 5.11
+ - A device with [pfSense](https://www.pfsense.org/) installed - tested with v2.5 CE
+ - The [FauxAPI](https://github.com/ndejong/pfsense_fauxapi) installed on your pfSense instance, configured with an API key and access token - tested using the latest version as of 3/7/21
+ - [Home Assistant](https://www.home-assistant.io/) - tested with core version 2021.2.3 on Home Assistant OS 5.11
  - The ability to run Python3 commands in your Home Assistant environmet - see [#8](https://github.com/JOHLC/pfSense-FauxAPI-ha/issues/8)
  - Patience and understanding 
  
