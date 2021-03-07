@@ -1,8 +1,9 @@
 {
   "domain": "pfsense_fauxapi",
   "name": "pfSense FauxAPI",
+  "version": "v20210307.1",
   "documentation": "https://github.com/JOHLC/pfSense-FauxAPI-ha",
   "dependencies": [],
   "codeowners": ["@JOHLC"],
-  "requirements": []
+  "requirements": ["pfsense-fauxapi==20190317.1"]
 }
