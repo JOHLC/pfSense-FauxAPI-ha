@@ -1,5 +1,6 @@
 # pfSense FauxAPI for Home Assistant
-[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs) <br />
+<img src="https://raw.githubusercontent.com/home-assistant/brands/master/custom_integrations/pfsense_gateways/logo.png" alt="pfSense" width="275">
 
 A custom component for Home Assistant that interfaces with FauxAPI installed on a pfSense firewall.
 
@@ -18,7 +19,6 @@ Also: https://community.home-assistant.io/t/pfsense-rule-switch/109424 / https:/
  
 ### Screenshot
 <img src="https://raw.githubusercontent.com/JOHLC/pfSense-FauxAPI-ha/main/images/sclatest.jpg" alt="Screenshot 1" >
-
 # Install instructions
 
 ## 1. HACS installation - recommended<br /> 
