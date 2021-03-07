@@ -1,6 +1,7 @@
 # pfSense FauxAPI for Home Assistant
+<img src="https://raw.githubusercontent.com/home-assistant/brands/master/custom_integrations/pfsense_gateways/logo.png" alt="pfSense" width="275"><br />
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs) <br />
-<img src="https://raw.githubusercontent.com/home-assistant/brands/master/custom_integrations/pfsense_gateways/logo.png" alt="pfSense" width="275">
+
 
 A custom component for Home Assistant that interfaces with FauxAPI installed on a pfSense firewall.
 
