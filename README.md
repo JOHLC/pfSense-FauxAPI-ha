@@ -98,15 +98,15 @@ sensor:
 ###Hardware
   - platform: command_line
     command: !secret pf_api_stats
-    name: pfSense_CPU_temp
+    name: pfSense CPU temp
     value_template: '{{ value_json["data"]["stats"]["temp"] }}'
     unit_of_measurement : '°C'
     scan_interval: 60
 
   - platform: command_line
     command: !secret pf_api_stats
-    name: pfSense_uptime
-    value_template: '{{ value_json["data"]["stats"]["uptime"] | regex_replace(find=" hours ",replace=":",ignorecase=True) | regex_replace(find=" hour ",replace=":",ignorecase=True)| regex_replace(find=" Minutes ",replace=":",ignorecase=True) | regex_replace(find=" Minute ",replace=":",ignorecase=True) | regex_replace(find=" Seconds",replace="",ignorecase=True) | regex_replace(find=" Second",replace="",ignorecase=True) }}'
+    name: pfSense uptime
+    value_template: '{{ value_json["data"]["stats"]["uptime"] | regex_replace(find=" days ",replace=":",ignorecase=True) | regex_replace(find=" day ",replace=":",ignorecase=True) | regex_replace(find=" hours ",replace=":",ignorecase=True) | regex_replace(find=" hour ",replace=":",ignorecase=True)| regex_replace(find=" Minutes ",replace=":",ignorecase=True) | regex_replace(find=" Minute ",replace=":",ignorecase=True) | regex_replace(find=" Seconds",replace="",ignorecase=True) | regex_replace(find=" Second",replace="",ignorecase=True) }}'
     scan_interval: 60
 
   - platform: command_line
@@ -134,26 +134,26 @@ sensor:
   - platform: command_line
     command: !secret pf_api_gw
     name: pfSense WAN IP
-    value_template: '{{ value_json["data"]["gateway_status"]["ip.address.of.yourgw"]["srcip"] }}'
+    value_template: '{{ value_json["data"]["your.gw.ip.address"]["98.5.112.1"]["srcip"] }}'
     scan_interval: 1800
     
   - platform: command_line
     command: !secret pf_api_gw
     name: pfSense WAN packetloss
-    value_template: '{{ value_json["data"]["gateway_status"]["ip.address.of.yourgw"]["loss"] | regex_replace(find="%",replace="",ignorecase=True) }}'
+    value_template: '{{ value_json["data"]["gateway_status"]["your.gw.ip.address"]["loss"] | regex_replace(find="%",replace="",ignorecase=True) }}'
     unit_of_measurement: "%"
     scan_interval: 15
 
   - platform: command_line
     command: !secret pf_api_gw
     name: pfSense WAN status
-    value_template: '{{ value_json["data"]["gateway_status"]["ip.address.of.yourgw"]["status"] }}'
+    value_template: '{{ value_json["data"]["gateway_status"]["your.gw.ip.address"]["status"] }}'
     scan_interval: 15
 
   - platform: command_line
     command: !secret pf_api_gw
     name: pfSense WAN latency
-    value_template: '{{ value_json["data"]["gateway_status"]["ip.address.of.yourgw"]["delay"] | regex_replace(find="ms",replace="",ignorecase=True) }}' 
+    value_template: '{{ value_json["data"]["gateway_status"]["your.gw.ip.address"]["delay"] | regex_replace(find="ms",replace="",ignorecase=True) }}' 
     unit_of_measurement: "ms"
     scan_interval: 60
 
