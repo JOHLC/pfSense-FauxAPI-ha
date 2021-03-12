@@ -1,7 +1,9 @@
 # pfSense FauxAPI for Home Assistant
-<img src="https://raw.githubusercontent.com/home-assistant/brands/master/custom_integrations/pfsense_gateways/logo.png" alt="pfSense" width="275"><br />
-[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs) <br />
+<img src="https://raw.githubusercontent.com/home-assistant/brands/master/custom_integrations/pfsense_gateways/logo.png" alt="pfSense" width="275">  
 
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
+<img alt="GitHub Release Date" src="https://img.shields.io/github/release-date/johlc/pfSense-FauxAPI-ha"> ![GitHub release (latest by date)](https://img.shields.io/github/v/release/johlc/pfSense-FauxAPI-ha?label=Version&style=flat-square&labelColor=2ea9f4&color=1473ae)
+![GitHub All Releases](https://img.shields.io/github/downloads/johlc/pfSense-FauxAPI-ha/total?&label=Total%20Downloads&style=flat-square&labelColor=2ea9f4&color=1473ae) 
 
 A custom component for Home Assistant that interfaces with FauxAPI installed on a pfSense firewall.
 
