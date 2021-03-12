@@ -11,7 +11,7 @@ configuration.yaml
 ---------------------------------------
 
 switch:
-  - platform: pfsense_rule
+  - platform: pfsense_fauxapi
     host: 192.168.1.1
     api_key: PFFA1QDKsakjied21
     access_token: AectmzLxeTS413I6FtLyA3xhFxs3Y80n3bZEu6gzboxd5adUbbrejFZae1u5
