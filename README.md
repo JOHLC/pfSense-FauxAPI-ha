@@ -7,16 +7,16 @@
 
 A custom component for Home Assistant that interfaces with FauxAPI installed on a pfSense firewall.
 
-**Attention:** This isn't in any way intended to be an official or supported release, so continue at your own risk. I'm not even sure it's even a "component."
+**Attention:** This isn't in any way intended to be an official or supported release, it is intended mainly for my own personal use. Continue at your own risk.  
 If anyone with a better understanding of Python would like to help improve this, that would be cool. 
 
-I owe credit to mainly this Home Assistant community post: https://community.home-assistant.io/t/pfsense-stat-monitor/61070
-Also: https://community.home-assistant.io/t/pfsense-rule-switch/109424 / https://github.com/dgshue/home-assistant-custom-components
+I owe credit mainly to the incredibly intellegent folks in this Home Assistant community post: [pfSense stat monitor](https://community.home-assistant.io/t/pfsense-stat-monitor/61070)  
+and @dgshue for the [pfSense Rule Switch Component](https://github.com/dgshue/home-assistant-custom-components#pfsense_rule)
 
 ### Prerequisites
  - A device with [pfSense](https://www.pfsense.org/) installed - tested with v2.5 CE
- - The [FauxAPI](https://github.com/ndejong/pfsense_fauxapi) installed on your pfSense instance, configured with an API key and access token - tested using the latest version as of 3/7/21
- - [Home Assistant](https://www.home-assistant.io/) - tested with core version 2021.2.3 on Home Assistant OS 5.11
+ - [FauxAPI](https://github.com/ndejong/pfsense_fauxapi) installed on your pfSense instance, configured with an API key and access token - tested using the latest version as of 3/7/21
+ - [Home Assistant](https://www.home-assistant.io/) - tested with core version 2021.3.3 on Home Assistant OS 5.12
  - The ability to run Python3 commands in your Home Assistant environmet - see [#8](https://github.com/JOHLC/pfSense-FauxAPI-ha/issues/8)
  - Patience and understanding 
  
@@ -47,20 +47,18 @@ Also: https://community.home-assistant.io/t/pfsense-rule-switch/109424 / https:/
 #### Configure your secrets.yaml with the appropriate python commands
 ```yaml
 # Example secrets.yaml entries - you will need to change your host IP, apikey, and accesstoken in each command below
-pf_api_stats: "python3 /config/custom_components/pfsense_fauxapi/scripts/function-stats.py 192.168.1.1 PFFAyourapikey youraccesstoken"
-pf_api_info: "python3 /config/custom_components/pfsense_fauxapi/scripts/function-info.py 192.168.1.1 PFFAyourapikey youraccesstoken"
-pf_api_gw: "python3 /config/custom_components/pfsense_fauxapi/scripts/function-gateway.py 192.168.1.1 PFFAyourapikey youraccesstoken"
-# Note: In order to fetch wan information you may need to do the following:
+pf_api_restart: "python3 /config/custom_components/pfsense_fauxapi/function-reboot.py 192.168.1.1 PFFAyourapikey youraccesstoken"
+pf_api_command: "python3 /config/custom_components/pfsense_fauxapi/function-iterate.py 192.168.1.1 PFFAyourapikey youraccesstoken"
+# Note: In order to fetch wan information you may need to do at least the following:
 #   - Add `interface_*` to the `permit` line in `/etc/fauxapi/credentials.ini` in your pfSense instance
-#   - Change the interface name in `config/custom_components/pfsense_fauxapi/function-int-wan.py` if your pfSense wan interface is not `igb0`
-pf_api_restart: "python3 /config/custom_components/pfsense_fauxapi/scripts/function-reboot.py 192.168.1.1 PFFAyourapikey youraccesstoken"
-pf_api_int_wan: "python3 /config/custom_components/pfsense_fauxapi/scripts/function-int-wan.py 192.168.1.1 PFFAyourapikey youraccesstoken"
+#   - Change the interface name in `config/custom_components/pfsense_fauxapi/function-iterate.py` if your pfSense wan interface is not `igb0` #e.g. interface = 'igb1' 
 
 pf_key: PFFAyourpfsensekey
 pf_token: yourpfsensetoken
 ```
 
 #### Configure your rule switches
+For more information on rule switches, see the creator's [repo](https://github.com/nagyrobi/home-assistant-custom-components-pfsense-ruleswitch)
 ```yaml
 # Example configuration.yaml entries
 switch:
@@ -79,6 +77,7 @@ shell_command:
 ```
 
 #### Configure your sensors
+Note: You will need to change your.gw.ip.address under WAN section below to the IP address of your upstream gateway. 
 ```yaml
 # Example configuration.yaml entry
 sensor:
@@ -87,88 +86,89 @@ sensor:
 #######################################
 ###Version
   - platform: command_line
-    command: !secret pf_api_info
+    command: !secret pf_api_command
     name: pfSense version
-    value_template: '{{ value_json["data"]["info"]["pfsense_remote_version"]["installed_version"] }}'
+    value_template: '{{ value_json["info"]["data"]["info"]["pfsense_remote_version"]["installed_version"] }}'
     scan_interval: 3600
 
   - platform: command_line
-    command: !secret pf_api_info
+    command: !secret pf_api_command
     name: pfSense latest
-    value_template: '{{ value_json["data"]["info"]["pfsense_remote_version"]["version"] }}'
+    value_template: '{{ value_json["info"]["data"]["info"]["pfsense_remote_version"]["version"] }}'
     scan_interval: 3600
+
 ###Hardware
   - platform: command_line
-    command: !secret pf_api_stats
+    command: !secret pf_api_command
     name: pfSense CPU temp
-    value_template: '{{ value_json["data"]["stats"]["temp"] }}'
+    value_template: '{{ value_json["stat"]["data"]["stats"]["temp"] }}'
     unit_of_measurement : '°C'
     scan_interval: 60
 
   - platform: command_line
-    command: !secret pf_api_stats
+    command: !secret pf_api_command
     name: pfSense uptime
-    value_template: '{{ value_json["data"]["stats"]["uptime"] | regex_replace(find=" days ",replace=":",ignorecase=True) | regex_replace(find=" day ",replace=":",ignorecase=True) | regex_replace(find=" hours ",replace=":",ignorecase=True) | regex_replace(find=" hour ",replace=":",ignorecase=True)| regex_replace(find=" Minutes ",replace=":",ignorecase=True) | regex_replace(find=" Minute ",replace=":",ignorecase=True) | regex_replace(find=" Seconds",replace="",ignorecase=True) | regex_replace(find=" Second",replace="",ignorecase=True) }}'
+    value_template: '{{ value_json["stat"]["data"]["stats"]["uptime"] | regex_replace(find=" days ",replace=":",ignorecase=True) | regex_replace(find=" day ",replace=":",ignorecase=True) | regex_replace(find=" hours ",replace=":",ignorecase=True) | regex_replace(find=" hour ",replace=":",ignorecase=True)| regex_replace(find=" Minutes ",replace=":",ignorecase=True) | regex_replace(find=" Minute ",replace=":",ignorecase=True) | regex_replace(find=" Seconds",replace="",ignorecase=True) | regex_replace(find=" Second",replace="",ignorecase=True) }}'
     scan_interval: 60
 
   - platform: command_line
-    command: !secret pf_api_stats
+    command: !secret pf_api_command
     name: pfSense memory use
-    value_template: '{{ value_json["data"]["stats"]["mem"] }}'
+    value_template: '{{ value_json["stat"]["data"]["stats"]["mem"] }}'
     unit_of_measurement : '%'
     scan_interval: 60
 
   - platform: command_line
-    command: !secret pf_api_stats
+    command: !secret pf_api_command
     name: pfSense CPU load avg
-    value_template: '{{ ((value_json["data"]["stats"]["load_average"][0] | float) * 100.0 / 2.0 ) | round(0) }}'
+    value_template: '{{ ((value_json["stat"]["data"]["stats"]["load_average"][0] | float) * 100.0 / 2.0 ) | round(0) }}'
     unit_of_measurement : '%'
     scan_interval: 60
 
   - platform: command_line
-    command: !secret pf_api_stats
+    command: !secret pf_api_command
     name: pfSense CPU usage
-    value_template: '{{ ( ( ((value_json["data"]["stats"]["cpu"].split("|")[0] | float) / (value_json["data"]["stats"]["cpu"].split("|")[1] | float)) - 1.0 ) * 100.0 ) | round(1) }}'
+    value_template: '{{ ( ( ((value_json["stat"]["data"]["stats"]["cpu"].split("|")[0] | float) / (value_json["stat"]["data"]["stats"]["cpu"].split("|")[1] | float)) - 1.0 ) * 100.0 ) | round(1) }}'
     unit_of_measurement : '%'
     scan_interval: 60
-    
-###WAN stats
+
+###WAN stats - change your.gw.ip.address to the correct IP address
   - platform: command_line
-    command: !secret pf_api_gw
+    command: !secret pf_api_command
     name: pfSense WAN IP
-    value_template: '{{ value_json["data"]["your.gw.ip.address"]["your.gw.ip.address"]["srcip"] }}'
-    scan_interval: 1800
+    value_template: '{{ value_json["gw_status"]["data"]["gateway_status"]["your.gw.ip.address"]["srcip"] }}'
+    scan_interval: 900
     
   - platform: command_line
-    command: !secret pf_api_gw
+    command: !secret pf_api_command
     name: pfSense WAN packetloss
-    value_template: '{{ value_json["data"]["gateway_status"]["your.gw.ip.address"]["loss"] | regex_replace(find="%",replace="",ignorecase=True) }}'
+    value_template: '{{ (value_json["gw_status"]["data"]["gateway_status"]["your.gw.ip.address"]["loss"]) | regex_replace(find="%",replace="",ignorecase=True) }}'
     unit_of_measurement: "%"
-    scan_interval: 15
+    scan_interval: 60
 
   - platform: command_line
-    command: !secret pf_api_gw
+    command: !secret pf_api_command
     name: pfSense WAN status
-    value_template: '{{ value_json["data"]["gateway_status"]["your.gw.ip.address"]["status"] }}'
-    scan_interval: 15
+    value_template: '{{ (value_json["gw_status"]["data"]["gateway_status"]["your.gw.ip.address"]["status"]) }}'
+    scan_interval: 60
 
   - platform: command_line
-    command: !secret pf_api_gw
+    command: !secret pf_api_command
     name: pfSense WAN latency
-    value_template: '{{ value_json["data"]["gateway_status"]["your.gw.ip.address"]["delay"] | regex_replace(find="ms",replace="",ignorecase=True) }}' 
+    value_template: '{{ (value_json["gw_status"]["data"]["gateway_status"]["your.gw.ip.address"]["delay"]) | regex_replace(find="ms",replace="",ignorecase=True) }}' 
     unit_of_measurement: "ms"
     scan_interval: 60
 
   - platform: command_line
-    command: !secret pf_api_int_wan
+    command: !secret pf_api_command
     name: pfSense WAN GB in
-    value_template: '{{ (value_json["data"]["stats"]["inbytes"] | float / 1000 / 1000 / 1000) | round(2)}}'
+    value_template: '{{ (value_json[int_status]["data"]["stats"]["inbytes"] | float / 1000 / 1000 / 1000) | round(2)}}'
     scan_interval: 60
     unit_of_measurement: GB
 
   - platform: command_line
-    command: !secret pf_api_int_wan
+    command: !secret pf_api_command
     name: pfSense WAN GB out
-    value_template: '{{ (value_json["data"]["stats"]["outbytes"] | float / 1000 / 1000 / 1000) | round(2)}}'
+    value_template: '{{ (value_json[int_status]["data"]["stats"]["outbytes"] | float / 1000 / 1000 / 1000) | round(2)}}'
     scan_interval: 60
     unit_of_measurement: GB
