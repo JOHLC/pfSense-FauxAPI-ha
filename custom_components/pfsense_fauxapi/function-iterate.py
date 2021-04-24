@@ -11,15 +11,10 @@ interface = 'igb0'
 
 ########DO NOT EDIT ANYTHING BELOW THIS LINE############
 import os,sys,json
+from PfsenseFauxapi import PfsenseFauxapi
 sys.path.append(os.path.abspath(os.path.join(os.path.curdir, '../client-libs/python')))     # hack to make this work in-place
 
-try:
-    from PfsenseFauxapi.PfsenseFauxapi import PfsenseFauxapi
-except:
-    sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-    from PfsenseFauxapi import PfsenseFauxapi
-
-# config
+#config
 host=sys.argv[1]
 apikey=sys.argv[2]
 apisecret=sys.argv[3]
