@@ -90,14 +90,14 @@ sensor:
     command: !secret pf_api_command
     name: pfSense version
     value_template: '{{ value_json["info"]["data"]["info"]["pfsense_remote_version"]["installed_version"] }}'
-    scan_interval: 3600
+    scan_interval: 43200
 
   - platform: command_line
     command: !secret pf_api_command
     name: pfSense latest
     value_template: '{{ value_json["info"]["data"]["info"]["pfsense_remote_version"]["version"] }}'
-    scan_interval: 3600
-
+    scan_interval: 43200
+    
 ###Hardware
   - platform: command_line
     command: !secret pf_api_command
@@ -110,48 +110,48 @@ sensor:
     command: !secret pf_api_command
     name: pfSense uptime
     value_template: '{{ value_json["stat"]["data"]["stats"]["uptime"] | regex_replace(find=" days ",replace=":",ignorecase=True) | regex_replace(find=" day ",replace=":",ignorecase=True) | regex_replace(find=" hours ",replace=":",ignorecase=True) | regex_replace(find=" hour ",replace=":",ignorecase=True)| regex_replace(find=" Minutes ",replace=":",ignorecase=True) | regex_replace(find=" Minute ",replace=":",ignorecase=True) | regex_replace(find=" Seconds",replace="",ignorecase=True) | regex_replace(find=" Second",replace="",ignorecase=True) }}'
-    scan_interval: 60
+    scan_interval: 300
 
   - platform: command_line
     command: !secret pf_api_command
     name: pfSense memory use
     value_template: '{{ value_json["stat"]["data"]["stats"]["mem"] }}'
     unit_of_measurement : '%'
-    scan_interval: 60
+    scan_interval: 30
 
   - platform: command_line
     command: !secret pf_api_command
     name: pfSense CPU load avg
     value_template: '{{ ((value_json["stat"]["data"]["stats"]["load_average"][0] | float) * 100.0 / 2.0 ) | round(0) }}'
     unit_of_measurement : '%'
-    scan_interval: 60
+    scan_interval: 30
 
   - platform: command_line
     command: !secret pf_api_command
     name: pfSense CPU usage
     value_template: '{{ ( ( ((value_json["stat"]["data"]["stats"]["cpu"].split("|")[0] | float) / (value_json["stat"]["data"]["stats"]["cpu"].split("|")[1] | float)) - 1.0 ) * 100.0 ) | round(1) }}'
     unit_of_measurement : '%'
-    scan_interval: 60
+    scan_interval: 30
 
 ###WAN stats - change your.gw.ip.address to the correct IP address
   - platform: command_line
     command: !secret pf_api_command
     name: pfSense WAN IP
     value_template: '{{ value_json["gw_status"]["data"]["gateway_status"]["your.gw.ip.address"]["srcip"] }}'
-    scan_interval: 900
+    scan_interval: 300
     
   - platform: command_line
     command: !secret pf_api_command
     name: pfSense WAN packetloss
     value_template: '{{ (value_json["gw_status"]["data"]["gateway_status"]["your.gw.ip.address"]["loss"]) | regex_replace(find="%",replace="",ignorecase=True) }}'
     unit_of_measurement: "%"
-    scan_interval: 60
+    scan_interval: 30
 
   - platform: command_line
     command: !secret pf_api_command
     name: pfSense WAN status
     value_template: '{{ (value_json["gw_status"]["data"]["gateway_status"]["your.gw.ip.address"]["status"]) }}'
-    scan_interval: 60
+    scan_interval: 30
 
   - platform: command_line
     command: !secret pf_api_command
