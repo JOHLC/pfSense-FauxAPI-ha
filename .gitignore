@@ -1,0 +1,6 @@
+LICENSE
+hacs.json
+README.md
+CHANGELOG.md
+*.pyc
+/__pycache__/
