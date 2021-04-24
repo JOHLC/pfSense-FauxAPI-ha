@@ -9,7 +9,6 @@ if(len(sys.argv) < 4):
     print()
     print('usage: ' + sys.argv[0] + ' <host> <apikey> <apisecret>')
     print()
-    print('pipe JSON output through jq for easy pretty print output:-')
     print(' $ ' + sys.argv[0] + ' <host> <apikey> <apisecret> | jq .')
     print()
     sys.exit(1)
