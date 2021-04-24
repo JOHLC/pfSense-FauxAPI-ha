@@ -9,7 +9,6 @@ if(len(sys.argv) < 4):
     print()
     print('usage: ' + sys.argv[0] + ' <host> <apikey> <apisecret>')
     print()
-    print('pipe JSON output through jq for easy pretty print output:-')
     print(' $ ' + sys.argv[0] + ' <host> <apikey> <apisecret> | jq .')
     print()
     sys.exit(1)
@@ -22,8 +21,8 @@ fauxapi_apisecret=sys.argv[3]
 PfsenseFauxapi= PfsenseFauxapi(fauxapi_host, fauxapi_apikey, fauxapi_apisecret, debug=False)
 
 
-# system_stats
+# reboot
 # =============================================================================
 print(json.dumps(
-    PfsenseFauxapi.function_call(data="get_services"))
+    PfsenseFauxapi.system_reboot())
 )

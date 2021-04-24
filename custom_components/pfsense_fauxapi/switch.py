@@ -7,19 +7,15 @@ https://github.com/dgshue/home-assistant-custom-components
 Example usage:
 
 configuration.yaml
-
 ---------------------------------------
-
 switch:
-  - platform: pfsense_rule
+  - platform: pfsense_fauxapi
     host: 192.168.1.1
-    api_key: PFFA1QDKsakjied21
-    access_token: AectmzLxeTS413I6FtLyA3xhFxs3Y80n3bZEu6gzboxd5adUbbrejFZae1u5
+    api_key: PFFA1QDKsadfsde2ffd
+    access_token: fsdfDSFewffsdfFwevsdfaFewwfffsEwrwesfdfCVvsdfwergsdfSDfwersdf
     rule_filter: HomeAssistant
 
-
 ---------------------------------------
-
 """
 import logging
 import subprocess
@@ -37,7 +33,7 @@ CONF_RULE_FILTER = 'rule_filter'
 
 DOMAIN = "switch"
 
-REQUIREMENTS = ['pfsense-fauxapi==20190317.1']
+REQUIREMENTS = ['pfsense-fauxapi']
 
 
 _LOGGER = logging.getLogger(__name__)

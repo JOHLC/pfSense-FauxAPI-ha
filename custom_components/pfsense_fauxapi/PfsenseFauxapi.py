@@ -21,7 +21,6 @@ import urllib
 import requests
 import datetime
 import hashlib
-from __version__ import __version__
 
 
 class PfsenseFauxapiException(Exception):
@@ -41,7 +40,6 @@ class PfsenseFauxapi:
     def __init__(self, host, apikey, apisecret, use_verified_https=False, debug=False):
         self.proto = 'https'
         self.base_url = 'fauxapi/v1'
-        self.version = __version__
         self.host = host
         self.apikey = apikey
         self.apisecret = apisecret
