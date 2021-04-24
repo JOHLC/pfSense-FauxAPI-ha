@@ -45,6 +45,7 @@ and @dgshue for the [pfSense Rule Switch Component](https://github.com/dgshue/ho
 ## 2. Configure your sensors and commands<br /> 
 
 #### Configure your secrets.yaml with the appropriate python commands
+Important: You need to change a few things below with your setup information 
 ```yaml
 # Example secrets.yaml entries - you will need to change your host IP, apikey, and accesstoken in each command below
 pf_api_restart: "python3 /config/custom_components/pfsense_fauxapi/function-reboot.py 192.168.1.1 PFFAyourapikey youraccesstoken"
