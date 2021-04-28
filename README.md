@@ -159,17 +159,17 @@ sensor:
     value_template: '{{ (value_json["gw_status"]["data"]["gateway_status"]["your.gw.ip.address"]["delay"]) | regex_replace(find="ms",replace="",ignorecase=True) }}' 
     unit_of_measurement: "ms"
     scan_interval: 60
-
+    
   - platform: command_line
     command: !secret pf_api_command
     name: pfSense WAN GB in
-    value_template: '{{ (value_json[int_status]["data"]["stats"]["inbytes"] | float / 1000 / 1000 / 1000) | round(2)}}'
+    value_template: '{{ (value_json["int_status"]["data"]["stats"]["inbytes"] | float / 1000 / 1000 / 1000) | round(2)}}'
     scan_interval: 60
     unit_of_measurement: GB
 
   - platform: command_line
     command: !secret pf_api_command
     name: pfSense WAN GB out
-    value_template: '{{ (value_json[int_status]["data"]["stats"]["outbytes"] | float / 1000 / 1000 / 1000) | round(2)}}'
+    value_template: '{{ (value_json["int_status"]["data"]["stats"]["outbytes"] | float / 1000 / 1000 / 1000) | round(2)}}'
     scan_interval: 60
     unit_of_measurement: GB
