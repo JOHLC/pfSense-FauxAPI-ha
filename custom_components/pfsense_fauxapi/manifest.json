@@ -1,10 +1,10 @@
 {
   "iot_class": "local_polling",
-  "issue_tracker": "https://github.com/JOHLC/pfSense-FauxAPI-ha/issues",
   "domain": "pfsense_fauxapi",
   "name": "pfSense FauxAPI",
   "version": "v20210424.1",
   "documentation": "https://github.com/JOHLC/pfSense-FauxAPI-ha",
+  "issue_tracker": "https://github.com/JOHLC/pfSense-FauxAPI-ha/issues",
   "dependencies": [],
   "codeowners": ["@JOHLC"],
   "requirements": ["pfsense-fauxapi"]
