@@ -1,5 +1,6 @@
 {
-  "ha_iot_class": "Local Polling",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/JOHLC/pfSense-FauxAPI-ha/issues",
   "domain": "pfsense_fauxapi",
   "name": "pfSense FauxAPI",
   "version": "v20210424.1",
