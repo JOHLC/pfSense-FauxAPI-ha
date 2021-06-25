@@ -15,6 +15,7 @@ and @dgshue for the [pfSense Rule Switch Component](https://github.com/dgshue/ho
 
 ### Prerequisites
  - A device with [pfSense](https://www.pfsense.org/) installed - tested with v2.5 CE
+   - Web access should be configured with ssl/https encryption and a certificate
  - [FauxAPI](https://github.com/ndejong/pfsense_fauxapi) installed on your pfSense instance, configured with an API key and access token - tested using the latest version as of 3/7/21
  - [Home Assistant](https://www.home-assistant.io/) - tested with core version 2021.3.3 on Home Assistant OS 5.12
  - The ability to run Python3 commands in your Home Assistant environmet - see [#8](https://github.com/JOHLC/pfSense-FauxAPI-ha/issues/8)
