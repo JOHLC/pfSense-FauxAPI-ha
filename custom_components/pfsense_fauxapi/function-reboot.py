@@ -13,13 +13,15 @@ if(len(sys.argv) < 4):
     print()
     sys.exit(1)
 
-# config
-fauxapi_host=sys.argv[1]
-fauxapi_apikey=sys.argv[2]
-fauxapi_apisecret=sys.argv[3]
+#config
+host=sys.argv[1]
+port=sys.argv[2]
+apikey=sys.argv[3]
+apisecret=sys.argv[4]
 
-PfsenseFauxapi= PfsenseFauxapi(fauxapi_host, fauxapi_apikey, fauxapi_apisecret, debug=False)
+fauxapi_host = '{}:{}'.format(host, port)
 
+FauxapiLib = PfsenseFauxapi(fauxapi_host, apikey, apisecret, debug=False)
 
 # reboot
 # =============================================================================
