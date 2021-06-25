@@ -11,6 +11,7 @@ configuration.yaml
 switch:
   - platform: pfsense_fauxapi
     host: 192.168.1.1
+    port: 443
     api_key: PFFA1QDKsadfsde2ffd
     access_token: fsdfDSFewffsdfFwevsdfaFewwfffsEwrwesfdfCVvsdfwergsdfSDfwersdf
     rule_filter: HomeAssistant
@@ -27,7 +28,7 @@ import homeassistant.helpers.config_validation as cv
 from homeassistant.components.switch import (
     SwitchEntity, PLATFORM_SCHEMA, ENTITY_ID_FORMAT)
 from homeassistant.const import (
-    CONF_FRIENDLY_NAME, CONF_SWITCHES, CONF_VALUE_TEMPLATE, CONF_HOST, CONF_API_KEY, CONF_ACCESS_TOKEN)
+    CONF_FRIENDLY_NAME, CONF_SWITCHES, CONF_VALUE_TEMPLATE, CONF_HOST, CONF_PORT, CONF_API_KEY, CONF_ACCESS_TOKEN)
 
 CONF_RULE_FILTER = 'rule_filter'
 
@@ -40,6 +41,7 @@ _LOGGER = logging.getLogger(__name__)
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_HOST): cv.string,
+    vol.Required(CONF_PORT): cv.string,
     vol.Required(CONF_API_KEY): cv.string,
     vol.Required(CONF_ACCESS_TOKEN): cv.string,
     vol.Optional(CONF_FRIENDLY_NAME): cv.string,
@@ -58,14 +60,17 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
     # Assign configuration variables. The configuration check takes care they are
     # present.
     host = config.get(CONF_HOST)
+    port = config.get(CONF_PORT)
     api_key = config.get(CONF_API_KEY)
     access_token = config.get(CONF_ACCESS_TOKEN)
     rule_prefix = config.get(CONF_RULE_FILTER)
 
+    fauxapi_host = '{}:{}'.format(host, port)
+
     _LOGGER.debug("Connecting to pfSense firewall to collect rules to add as switches.")
 
     try:
-        FauxapiLib = PfsenseFauxapi(host, api_key, access_token, debug=True)
+        FauxapiLib = PfsenseFauxapi(fauxapi_host, api_key, access_token, debug=True)
 
         # Get the current set of filters
         filters = FauxapiLib.config_get('filter')
@@ -82,11 +87,11 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
             if rule_prefix:
                 if (rule['descr'].startswith(rule_prefix)):
                     _LOGGER.debug("Found rule %s", rule['descr'])
-                    new_rule = pfSense('pfsense_'+rule['descr'],rule['descr'],rule['tracker'], host, api_key, access_token)
+                    new_rule = pfSense('pfsense_'+rule['descr'],rule['descr'],rule['tracker'], fauxapi_host, api_key, access_token)
                     rules.append(new_rule)
             else:
                 _LOGGER.debug("Found rule %s", rule['descr'])
-                new_rule = pfSense('pfsense_'+rule['descr'],rule['descr'],rule['tracker'], host, api_key, access_token)
+                new_rule = pfSense('pfsense_'+rule['descr'],rule['descr'],rule['tracker'], fauxapi_host, api_key, access_token)
                 rules.append(new_rule)
             i=i+1
 
@@ -94,18 +99,18 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
         # Add devices
         add_entities(rules)
     except Exception as e:
-        _LOGGER.error("Problem getting rule set from pfSense host: %s.  Likely due to API key or secret. More Info:" + str(e), host)
+        _LOGGER.error("Problem getting rule set from pfSense host: %s.  Likely due to API key or secret. More Info:" + str(e), fauxapi_host)
 
 class pfSense(SwitchEntity):
     """Representation of an pfSense Rule."""
 
-    def __init__(self, name, rule_name, tracker_id, host, api_key, access_token):
+    def __init__(self, name, rule_name, tracker_id, fauxapi_host, api_key, access_token):
         _LOGGER.info("Initialized pfSense Rule SWITCH %s", name)
         """Initialize an pfSense Rule as a switch."""
         self._name = name
         self._rule_name = rule_name
         self._state = None
-        self._host = host
+        self._host = fauxapi_host
         self._api_key = api_key
         self._access_token = access_token
         self._tracker_id = tracker_id
