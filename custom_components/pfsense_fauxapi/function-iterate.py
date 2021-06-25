@@ -16,10 +16,13 @@ sys.path.append(os.path.abspath(os.path.join(os.path.curdir, '../client-libs/pyt
 
 #config
 host=sys.argv[1]
-apikey=sys.argv[2]
-apisecret=sys.argv[3]
+port=sys.argv[2]
+apikey=sys.argv[3]
+apisecret=sys.argv[4]
 
-FauxapiLib = PfsenseFauxapi(host, apikey, apisecret, debug=False)
+fauxapi_host = '{}:{}'.format(host, port)
+
+FauxapiLib = PfsenseFauxapi(fauxapi_host, apikey, apisecret, debug=False)
 
 stat = FauxapiLib.system_stats()
 info = FauxapiLib.system_info()
