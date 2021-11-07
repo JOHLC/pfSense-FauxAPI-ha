@@ -1,4 +1,4 @@
-# pfSense FauxAPI for Home Assistant
+# pfSense FauxAPI for Home Assistant - DEPRECIATED
 <img src="https://raw.githubusercontent.com/home-assistant/brands/master/custom_integrations/pfsense_gateways/logo.png" alt="pfSense" width="275">  
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
