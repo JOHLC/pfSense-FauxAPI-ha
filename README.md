@@ -1,4 +1,8 @@
 # pfSense FauxAPI for Home Assistant - DEPRECIATED
+## DEPRECIATED ##
+
+> :warning: :warning: **This has been depreciated and is no longer developed**: Check out https://github.com/travisghansen/hass-pfsense which is excatly what I always wanted - Shoutout to the great work by [travisghansen](https://github.com/travisghansen/hass-pfsense/commits?author=travisghansen)!
+
 <img src="https://raw.githubusercontent.com/home-assistant/brands/master/custom_integrations/pfsense_gateways/logo.png" alt="pfSense" width="275">  
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
